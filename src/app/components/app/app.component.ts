@@ -11,8 +11,8 @@ import { DisplayPolicy, PolicyValidationResult } from '../../types';
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
     standalone: true,
-    imports: [CommonModule, FormsModule, HttpClientModule],
-    providers: [PolicyValidationService, PolicyApiService]
+    imports: [CommonModule, FormsModule, HttpClientModule]
+    // providers removed to allow test mocking
 })
 export class AppComponent {
   @ViewChild('fileInput') fileInput!: ElementRef;
