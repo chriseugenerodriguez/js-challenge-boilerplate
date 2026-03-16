@@ -54,32 +54,6 @@ npm test
 ```
 src/
 ├── app/
-│   ├── app.component.ts           # Main component logic
-│   ├── app.component.html         # UI template
-│   ├── app.component.scss         # Component styling
-│   ├── policy-validation.service.ts    # Checksum and error correction logic
-│   ├── policy-validation.service.spec.ts # Validation tests
-│   ├── policy-api.service.ts      # API communication
-│   ├── app.config.ts              # Application configuration
-│   └── app.routes.ts              # Routing configuration
-├── styles.scss                    # Global styles and color palette
-├── index.html                     # Application shell
-└── main.ts                        # Bootstrap file
-```
-- ✅ Smooth animations and transitions
-
-### Technical
-- Built with Angular 20 using standalone components
-- TypeScript 5.8 with strict mode
-- SCSS styling with CSS variables
-- HTTP client for API integration
-- Comprehensive unit tests
-
-## Project Structure
-
-```
-src/
-├── app/
 │   ├── components/
 │   │   └── app/                       # Main application component
 │   │       ├── app.component.ts
@@ -90,6 +64,12 @@ src/
 │   │   ├── policy-validation.service.ts
 │   │   ├── policy-validation.service.spec.ts
 │   │   └── policy-api.service.ts
+│   ├── constants/                     # Application constants
+│   │   ├── index.ts
+│   │   └── policy.constants.ts
+│   ├── types/                         # TypeScript type definitions
+│   │   └── index.ts
+│   │   └── policy.types.ts
 │   ├── app.config.ts                  # Application configuration
 │   └── app.routes.ts                  # Routing configuration
 ├── assets/                            # Static assets
@@ -97,6 +77,15 @@ src/
 ├── index.html                         # Main HTML template
 └── main.ts                            # Application bootstrap
 ```
+
+- ✅ Smooth animations and transitions
+
+### Technical
+- Built with Angular 20 using standalone components
+- TypeScript 5.8 with strict mode
+- SCSS styling with CSS variables
+- HTTP client for API integration
+- Comprehensive unit tests
 
 ## Usage
 
@@ -160,6 +149,10 @@ Use `./sample.csv` for testing:
 457508000,664371495,333333333,45750800,555555555,666666666,777777777,861100036,861100036,123456789
 ```
 
+## Documentation
+
+- [IMPLEMENTATION.md](IMPLEMENTATION.md) - Detailed implementation notes and technical specifications
+
 ## Development
 
 ### Code Quality
@@ -171,17 +164,17 @@ Use `./sample.csv` for testing:
 
 ### Testing
 ```bash
-# Run tests in browser (watch mode)
+# Run tests in headless mode (CI/CD ready)
 npm test
 
-# Run tests once and exit
-npm test -- --watch=false
+# Run tests in browser (watch mode)
+npm test -- --browsers=Chrome
 
 # Run with coverage
 npm test -- --code-coverage
 ```
 
-Tests run in Chrome browser by default with detailed console output showing each test spec.
+Tests run in Chrome Headless by default with detailed console output showing progress and test specs.
 
 ### Build
 ```bash
