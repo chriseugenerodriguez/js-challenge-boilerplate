@@ -172,6 +172,8 @@ npm test -- --browsers=Chrome
 
 # Run with coverage
 npm test -- --code-coverage
+
+Coverage reports will be generated in the `coverage/` directory with HTML, LCOV, and text summary formats.
 ```
 
 Tests run in Chrome Headless by default with detailed console output showing progress and test specs.
