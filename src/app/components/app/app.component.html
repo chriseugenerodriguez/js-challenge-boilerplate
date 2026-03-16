@@ -1,0 +1,125 @@
+<div class="app-container">
+  <header class="app-header">
+    <h1>Policy Number Validator</h1>
+    <p class="subtitle">Upload a CSV file to validate policy numbers from OCR scanning</p>
+  </header>
+
+  <main class="app-main">
+    <!-- File Upload Section -->
+    <section class="upload-section">
+      <div class="upload-card">
+        <h2>Step 1: Upload CSV File</h2>
+        
+        <div class="file-input-wrapper">
+          <input 
+            #fileInput
+            type="file" 
+            accept=".csv" 
+            (change)="onFileSelected($event)"
+            class="file-input"
+            aria-label="Upload CSV file"
+          />
+          <label class="file-input-label">
+            <span class="file-icon">📄</span>
+            <span class="file-text">Choose CSV file (Max 2MB)</span>
+          </label>
+        </div>
+
+        <div *ngIf="fileError" class="error-message" role="alert">
+          {{ fileError }}
+        </div>
+
+        <div *ngIf="policies.length > 0" class="success-message" role="status">
+          ✓ {{ policies.length }} policy number(s) loaded successfully
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Table Section -->
+    <section *ngIf="policies.length > 0" class="results-section">
+      <div class="results-card">
+        <h2>Step 2: Validation Results</h2>
+        
+        <div class="table-wrapper">
+          <table class="results-table" role="table">
+            <thead>
+              <tr>
+                <th scope="col">Policy Number</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let policy of policies; let i = index" [ngClass]="'status-' + policy.result.toLowerCase()">
+                <td>{{ policy.policyNumber }}</td>
+                <td>
+                  <span class="status-badge" [ngClass]="'badge-' + policy.result.toLowerCase()">
+                    {{ policy.result }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Status Legend -->
+        <div class="legend">
+          <div class="legend-item">
+            <span class="status-badge badge-valid">Valid</span>
+            <span>Policy number has correct checksum</span>
+          </div>
+          <div class="legend-item">
+            <span class="status-badge badge-corrected">Corrected</span>
+            <span>Policy number was corrected by swapping 1 digit</span>
+          </div>
+          <div class="legend-item">
+            <span class="status-badge badge-ambiguous">Ambiguous</span>
+            <span>Multiple possible corrections exist</span>
+          </div>
+          <div class="legend-item">
+            <span class="status-badge badge-error">Error</span>
+            <span>No valid correction found</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Action Buttons Section -->
+    <section *ngIf="policies.length > 0" class="action-section">
+      <div class="action-buttons">
+        <button 
+          class="btn btn-primary"
+          (click)="submitToApi()"
+          [disabled]="!canSubmit() || isLoading"
+          aria-label="Submit policies to API"
+        >
+          <span *ngIf="!isLoading">Step 3: Submit to API</span>
+          <span *ngIf="isLoading">Submitting...</span>
+        </button>
+        
+        <button 
+          class="btn btn-secondary"
+          (click)="reset()"
+          [disabled]="isLoading"
+          aria-label="Clear and start over"
+        >
+          Reset
+        </button>
+      </div>
+    </section>
+
+    <!-- Submission Result Section -->
+    <section *ngIf="submitMessage" class="message-section">
+      <div 
+        class="message" 
+        [ngClass]="submitMessageType === 'success' ? 'message-success' : 'message-error'"
+        role="alert"
+      >
+        <span class="message-icon">
+          {{ submitMessageType === 'success' ? '✓' : '✕' }}
+        </span>
+        <span class="message-text">{{ submitMessage }}</span>
+      </div>
+    </section>
+  </main>
+</div>
+

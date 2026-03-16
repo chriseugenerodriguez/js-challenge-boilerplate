@@ -20,12 +20,24 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('kin-ocr');
   });
 
+  it('should initialize with empty policies array', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.policies).toEqual([]);
+  });
+
+  it('should have file error empty on init', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.fileError).toEqual('');
+  });
+
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Hello, Kin OCR'
+      'Policy Number Validator'
     );
   });
 });
